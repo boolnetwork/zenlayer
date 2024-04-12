@@ -1,0 +1,32 @@
+[package]
+name = "pallet-validator-set"
+version = "1.0.0"
+edition = "2021"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+codec = { package = "parity-scale-codec", version = "3.6.1", default-features = false, features = ["derive", "max-encoded-len"] }
+scale-info = { workspace = true }
+frame-support = { workspace = true }
+frame-system = { workspace = true }
+pallet-aura = { workspace = true }
+pallet-session = { workspace = true }
+sp-std = { workspace = true }
+sp-runtime = { workspace = true }
+sp-staking = { workspace = true }
+log = { workspace = true }
+
+[features]
+default = ["std"]
+std = [
+    "codec/std",
+    "scale-info/std",
+    "frame-support/std",
+    "frame-system/std",
+    "pallet-aura/std",
+    "scale-info/std",
+    "sp-std/std",
+    "sp-runtime/std",
+]

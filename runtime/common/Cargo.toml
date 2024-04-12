@@ -1,0 +1,30 @@
+[package]
+name = "zenlayer-common-runtime"
+version = "1.0.0"
+description = "The common code shared between substrate runtimes for zenlayer Node"
+authors = { workspace = true }
+homepage = { workspace = true}
+edition = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+
+[dependencies]
+parity-scale-codec = { workspace = true }
+
+# Substrate
+frame-system = { workspace = true }
+frame-support = { workspace = true }
+sp-core = { workspace = true }
+sp-runtime = { workspace = true }
+sp-std = { workspace = true }
+
+[features]
+std = [
+	"frame-support/std",
+	"sp-core/std",
+	"sp-runtime/std",
+	"sp-std/std",
+]
+try-runtime = [
+	"frame-support/try-runtime",
+]

@@ -1,0 +1,186 @@
+[workspace]
+resolver = "2"
+members = [
+    "node/core",
+    "node/common",
+    "node/dev",
+    "node/testnet",
+    "node/mainnet",
+    "runtime/common",
+    "runtime/dev",
+    "runtime/testnet",
+    "runtime/mainnet",
+    "primitives/core",
+    "pallets/*",
+]
+[profile.release]
+panic = "unwind"
+
+[workspace.package]
+authors = ["BoolNetwork"]
+homepage = ""
+edition = "2021"
+license = "Apache-2.0"
+repository = ""
+
+[workspace.dependencies]
+# General
+substrate-fixed = { git = "https://github.com/encointer/substrate-fixed", default-features = false }
+parity-scale-codec = { version = "3.2.2", default-features = false, features = [
+    "derive",
+] }
+scale-info = { version = "2.0", default-features = false, features = [
+    "derive",
+] }
+evm = { git = "https://github.com/rust-blockchain/evm", rev = "b7b82c7e1fc57b7449d6dfa6826600de37cc1e65", default-features = false }
+environmental = { version = "1.1.2", default-features = false }
+clap = { version = "4.0.9", features = ["derive"] }
+hex = { version = "0.4.3", default-features = false }
+rlp = { version = "0.5", default-features = false }
+sha3 = { version = "0.10", default-features = false }
+num_enum = { version = "0.5.3", default-features = false }
+impl-serde = { version = "0.3.1", default-features = false }
+blake2-rfc = { version = "0.2.18", default-features = false }
+libsecp256k1 = { version = "0.7", default-features = false }
+serde = { version = "1.0.101", default-features = false }
+jsonrpsee = { version = "0.16.2", default-features = false }
+rustc-hex = { version = "2.0.1", default-features = false }
+log = { version = "0.4", default-features = false }
+impl-trait-for-tuples = "0.2.2"
+similar-asserts = "1.1.0"
+prettyplease = "0.1.18"
+hex-literal = "0.3.4"
+derive_more = "0.99"
+proc-macro2 = "1.0"
+serde_json = "1.0"
+futures = "0.3.1"
+tokio = "1.28.2"
+paste = "1.0.8"
+affix = "0.1.2"
+quote = "1.0"
+case = "1.0"
+syn = "1.0"
+
+bp-core = { default-features = false, path = "primitives/core" }
+account = { default-features = false, path = "primitives/account" }
+
+# zenlayer Runtime
+zenlayer-common-constants = { default-features = false, path = "runtime/common/constants" }
+zenlayer-dev-constants = { default-features = false, path = "runtime/dev/constants" }
+zenlayer-testnet-constants = { default-features = false, path = "runtime/testnet/constants" }
+zenlayer-mainnet-constants = { default-features = false, path = "runtime/mainnet/constants" }
+zenlayer-common-runtime = { default-features = false, path = "runtime/common" }
+zenlayer-dev-runtime = { path = "runtime/dev" }
+zenlayer-testnet-runtime = { path = "runtime/testnet" }
+zenlayer-mainnet-runtime = { path = "runtime/mainnet" }
+
+# zenlayer Client
+zenlayer-common-node = { path = "node/common" }
+zenlayer-dev-node = { path = "node/dev" }
+zenlayer-testnet-node = { path = "node/testnet" }
+zenlayer-mainnet-node = { path = "node/mainnet" }
+
+# Substrate Client
+sc-cli = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-client-api = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-rpc = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-rpc-api = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-transaction-pool = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-transaction-pool-api = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-chain-spec = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-consensus = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-consensus-aura = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-consensus-grandpa = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-consensus-grandpa-rpc = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-consensus-manual-seal = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-network = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-network-sync = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-service = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-executor = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-telemetry = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-basic-authorship = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-offchain = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+substrate-prometheus-endpoint = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+
+# Substrate Primitive
+sp-io = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-api = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-block-builder = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-blockchain = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-consensus = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-consensus-aura = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-consensus-grandpa = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-core = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-inherents = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-offchain = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-runtime = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-runtime-interface = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-session = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-std = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-transaction-pool = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-version = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-staking = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-keystore = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-timestamp = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-rpc = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-weights = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-application-crypto = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+
+# Substrate FRAME
+substrate-frame-rpc-system = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+frame-system = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+frame-support = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+frame-executive = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+frame-system-rpc-runtime-api = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+frame-benchmarking = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+frame-benchmarking-cli = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+frame-system-benchmarking = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+pallet-aura = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+pallet-balances = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+pallet-grandpa = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+pallet-sudo = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+pallet-timestamp = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+pallet-transaction-payment = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+pallet-transaction-payment-rpc = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+pallet-transaction-payment-rpc-runtime-api = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+pallet-session = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+pallet-validator-set = { default-features = false, path = "pallets/validator-set" }
+
+# Substrate Builds
+substrate-wasm-builder = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+substrate-build-script-utils = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+
+# Frontier Client
+fc-db = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fc-rpc = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fc-mapping-sync = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fc-rpc-core = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fc-rpc-debug = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fc-rpc-trace = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fc-rpc-txpool = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+
+# Frontier Primitive
+fp-self-contained = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fp-storage = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fp-evm = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fp-ext = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fp-rpc = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fp-rpc-debug = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fp-rpc-txpool = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fp-rpc-evm-tracing-events = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fp-account = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+
+# Frontier Runtime
+evm-tracer = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+
+# Frontier FRAME
+pallet-evm = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+pallet-evm-chain-id = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+pallet-ethereum = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+pallet-base-fee = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+pallet-dynamic-fee = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+pallet-evm-precompile-simple = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+pallet-evm-precompile-bn128= { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+pallet-evm-precompile-modexp= { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+pallet-evm-precompile-blake2= { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+pallet-evm-precompile-sha3fips= { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
