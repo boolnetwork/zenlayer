@@ -31,11 +31,13 @@ substrate-prometheus-endpoint = { workspace = true }
 sp-core = { workspace = true, features = ["std"] }
 sp-runtime = { workspace = true, features = ["std"] }
 sp-api = { workspace = true, features = ["std"] }
+sp-io = { workspace = true, features = ["std"] }
 sp-blockchain = { workspace = true }
 sp-block-builder = { workspace = true, features = ["std"] }
 
 # Frontier dependencies
 fc-db = { workspace = true }
+fc-api = { workspace = true }
 fc-rpc = { workspace = true, features = ["rpc-binary-search-estimate"] }
 fc-rpc-core = { workspace = true }
 fp-rpc-debug = { workspace = true }
@@ -43,6 +45,7 @@ fp-storage = { workspace = true }
 fp-rpc = { workspace = true }
 fc-rpc-debug = { workspace = true }
 fc-rpc-trace = { workspace = true }
+fp-ext = { workspace = true, features = ["std"] }
 
 # Local Dependencies
 bp-core = { workspace = true }

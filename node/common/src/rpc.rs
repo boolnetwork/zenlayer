@@ -1,58 +1,37 @@
 use crate::cli_opt::EthApi as EthApiCmd;
-use bp_core::{BlockNumber, Hash, Header};
-use fc_rpc::{
-	EthBlockDataCacheTask, OverrideHandle, RuntimeApiStorageOverride, SchemaV1Override,
-	SchemaV2Override, SchemaV3Override, StorageOverride,
-};
+
+use std::{collections::BTreeMap, sync::Arc};
+
+use fc_rpc::{EthBlockDataCacheTask, StorageOverride};
 use fc_rpc_core::types::{FeeHistoryCache, FilterPool};
-use fp_rpc::{self, EthereumRuntimeRPCApi};
-use fp_storage::EthereumStorageSchema;
 use sc_client_api::{backend::Backend, StorageProvider};
 use sc_consensus_grandpa::{
 	FinalityProofProvider, GrandpaJustificationStream, SharedAuthoritySet, SharedVoterState,
 };
 use sc_consensus_manual_seal::EngineCommand;
-use sc_network::NetworkService;
+use sc_network::service::traits::NetworkService;
 use sc_network_sync::SyncingService;
 use sc_rpc::SubscriptionTaskExecutor;
 use sc_rpc_api::DenyUnsafe;
 use sc_service::TaskManager;
 use sc_transaction_pool::{ChainApi, Pool};
-use sp_api::ProvideRuntimeApi;
-use sp_blockchain::HeaderBackend;
+
+use bp_core::{BlockNumber, Hash, Header};
 use sp_core::H256;
 use sp_runtime::{generic, traits::Block as BlockT, OpaqueExtrinsic as UncheckedExtrinsic};
-use std::{collections::BTreeMap, sync::Arc};
 
 pub type Block = generic::Block<Header, UncheckedExtrinsic>;
 
-/// Override storage
-pub fn overrides_handle<B, C, BE>(client: Arc<C>) -> Arc<OverrideHandle<B>>
-where
-	B: BlockT,
-	C: ProvideRuntimeApi<B>,
-	C::Api: EthereumRuntimeRPCApi<B>,
-	C: HeaderBackend<B> + StorageProvider<B, BE> + 'static,
-	BE: Backend<B> + 'static,
-{
-	let mut overrides_map = BTreeMap::new();
-	overrides_map.insert(
-		EthereumStorageSchema::V1,
-		Box::new(SchemaV1Override::new(client.clone())) as Box<dyn StorageOverride<_>>,
-	);
-	overrides_map.insert(
-		EthereumStorageSchema::V2,
-		Box::new(SchemaV2Override::new(client.clone())) as Box<dyn StorageOverride<_>>,
-	);
-	overrides_map.insert(
-		EthereumStorageSchema::V3,
-		Box::new(SchemaV3Override::new(client.clone())) as Box<dyn StorageOverride<_>>,
-	);
+pub struct DefaultEthConfig<C, BE>(std::marker::PhantomData<(C, BE)>);
 
-	Arc::new(OverrideHandle {
-		schemas: overrides_map,
-		fallback: Box::new(RuntimeApiStorageOverride::new(client.clone())),
-	})
+impl<C, BE> fc_rpc::EthConfig<Block, C> for DefaultEthConfig<C, BE>
+where
+	C: StorageProvider<Block, BE> + Sync + Send + 'static,
+	BE: Backend<Block> + 'static,
+{
+	type EstimateGasAdapter = ();
+	type RuntimeStorageOverride =
+		fc_rpc::frontier_backend_client::SystemAccountId20StorageOverride<Block, C, BE>;
 }
 
 /// Extra dependencies for GRANDPA
@@ -70,7 +49,9 @@ pub struct GrandpaDeps<B> {
 }
 
 /// Full client dependencies.
-pub struct FullDevDeps<C, P, BE, SC, A: ChainApi> {
+pub struct FullDevDeps<C, P, BE, SC, A: ChainApi, CIDP> {
+	/// Client version.
+	pub client_version: String,
 	/// The client instance to use.
 	pub client: Arc<C>,
 	/// Transaction pool instance.
@@ -88,13 +69,13 @@ pub struct FullDevDeps<C, P, BE, SC, A: ChainApi> {
 	/// The Node authority flag
 	pub is_authority: bool,
 	/// Network service
-	pub network: Arc<NetworkService<Block, Hash>>,
+	pub network: Arc<dyn NetworkService>,
 	/// EthFilterApi pool.
 	pub filter_pool: FilterPool,
 	/// List of optional RPC extensions.
 	pub ethapi_cmd: Vec<EthApiCmd>,
 	/// Frontier backend.
-	pub frontier_backend: Arc<dyn fc_db::BackendReader<Block> + Send + Sync>,
+	pub frontier_backend: Arc<dyn fc_api::Backend<Block> + Send + Sync>,
 	/// Backend.
 	pub backend: Arc<BE>,
 	/// Maximum fee history cache size.
@@ -102,7 +83,7 @@ pub struct FullDevDeps<C, P, BE, SC, A: ChainApi> {
 	/// Fee history cache.
 	pub fee_history_cache: FeeHistoryCache,
 	/// Ethereum data access overrides.
-	pub overrides: Arc<OverrideHandle<Block>>,
+	pub overrides: Arc<dyn StorageOverride<Block>>,
 	/// Cache for Ethereum block data.
 	pub block_data_cache: Arc<EthBlockDataCacheTask<Block>>,
 	/// Manual seal command sink
@@ -115,10 +96,14 @@ pub struct FullDevDeps<C, P, BE, SC, A: ChainApi> {
 	pub forced_parent_hashes: Option<BTreeMap<H256, H256>>,
 	/// Chain syncing service
 	pub sync_service: Arc<SyncingService<Block>>,
+	/// Something that can create the inherent data providers for pending state
+	pub pending_create_inherent_data_providers: CIDP,
 }
 
 /// Mainnet/Testnet client dependencies.
-pub struct FullDeps<C, P, BE, SC, A: ChainApi> {
+pub struct FullDeps<C, P, BE, SC, A: ChainApi, CIDP> {
+	/// Client version.
+	pub client_version: String,
 	/// The client instance to use.
 	pub client: Arc<C>,
 	/// Transaction pool instance.
@@ -136,13 +121,13 @@ pub struct FullDeps<C, P, BE, SC, A: ChainApi> {
 	/// The Node authority flag
 	pub is_authority: bool,
 	/// Network service
-	pub network: Arc<NetworkService<Block, Hash>>,
+	pub network: Arc<dyn NetworkService>,
 	/// EthFilterApi pool.
 	pub filter_pool: FilterPool,
 	/// List of optional RPC extensions.
 	pub ethapi_cmd: Vec<EthApiCmd>,
 	/// Frontier backend.
-	pub frontier_backend: Arc<dyn fc_db::BackendReader<Block> + Send + Sync>,
+	pub frontier_backend: Arc<dyn fc_api::Backend<Block> + Send + Sync>,
 	/// Backend.
 	pub backend: Arc<BE>,
 	/// Maximum fee history cache size.
@@ -150,7 +135,7 @@ pub struct FullDeps<C, P, BE, SC, A: ChainApi> {
 	/// Fee history cache.
 	pub fee_history_cache: FeeHistoryCache,
 	/// Ethereum data access overrides.
-	pub overrides: Arc<OverrideHandle<Block>>,
+	pub overrides: Arc<dyn StorageOverride<Block>>,
 	/// Cache for Ethereum block data.
 	pub block_data_cache: Arc<EthBlockDataCacheTask<Block>>,
 	/// Maximum number of logs in one query.
@@ -161,15 +146,17 @@ pub struct FullDeps<C, P, BE, SC, A: ChainApi> {
 	pub forced_parent_hashes: Option<BTreeMap<H256, H256>>,
 	/// Chain syncing service
 	pub sync_service: Arc<SyncingService<Block>>,
+	/// Something that can create the inherent data providers for pending state
+	pub pending_create_inherent_data_providers: CIDP,
 }
 
 pub struct SpawnTasksParams<'a, B: BlockT, C, BE> {
 	pub task_manager: &'a TaskManager,
 	pub client: Arc<C>,
 	pub substrate_backend: Arc<BE>,
-	pub frontier_backend: fc_db::Backend<B>,
+	pub frontier_backend: Arc<fc_db::Backend<B, C>>,
 	pub filter_pool: Option<FilterPool>,
-	pub overrides: Arc<OverrideHandle<B>>,
+	pub overrides: Arc<dyn StorageOverride<B>>,
 	pub fee_history_limit: u64,
 	pub fee_history_cache: FeeHistoryCache,
 }

@@ -3,7 +3,7 @@ name = "zenlayer-common-constants"
 version = "1.0.0"
 description = "The substrate runtime constants for zenlayer Node development"
 authors = { workspace = true }
-homepage = { workspace = true}
+homepage = { workspace = true }
 edition = { workspace = true }
 license = { workspace = true }
 repository = { workspace = true }
@@ -13,4 +13,4 @@ bp-core = { workspace = true }
 
 [features]
 default = ["std"]
-std = []
+std = ["bp-core/std"]

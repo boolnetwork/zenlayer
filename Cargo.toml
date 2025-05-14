@@ -25,32 +25,33 @@ repository = ""
 
 [workspace.dependencies]
 # General
-substrate-fixed = { git = "https://github.com/encointer/substrate-fixed", default-features = false }
-parity-scale-codec = { version = "3.2.2", default-features = false, features = [
-    "derive",
+substrate-fixed = { version = "0.5.9", default-features = false }
+parity-scale-codec = { version = "3.6.12", default-features = false, features = [
+	"derive",
 ] }
-scale-info = { version = "2.0", default-features = false, features = [
-    "derive",
+scale-info = { version = "2.11.3", default-features = false, features = [
+	"derive",
+	"serde",
 ] }
-evm = { git = "https://github.com/rust-blockchain/evm", rev = "b7b82c7e1fc57b7449d6dfa6826600de37cc1e65", default-features = false }
+evm = { git = "https://github.com/bifrost-platform/evm", branch = "bifrost-polkadot-stable2407", default-features = false }
 environmental = { version = "1.1.2", default-features = false }
-clap = { version = "4.0.9", features = ["derive"] }
+clap = { version = "4.5", features = ["derive"] }
 hex = { version = "0.4.3", default-features = false }
-rlp = { version = "0.5", default-features = false }
+rlp = { version = "0.5.2", default-features = false }
 sha3 = { version = "0.10", default-features = false }
-num_enum = { version = "0.5.3", default-features = false }
-impl-serde = { version = "0.3.1", default-features = false }
+num_enum = { version = "0.7.2", default-features = false }
+impl-serde = { version = "0.4.0", default-features = false }
 blake2-rfc = { version = "0.2.18", default-features = false }
 libsecp256k1 = { version = "0.7", default-features = false }
 serde = { version = "1.0.101", default-features = false }
-jsonrpsee = { version = "0.16.2", default-features = false }
+jsonrpsee = { version = "0.23.2", default-features = false }
 rustc-hex = { version = "2.0.1", default-features = false }
-log = { version = "0.4", default-features = false }
+log = { version = "0.4.21", default-features = false }
 impl-trait-for-tuples = "0.2.2"
 similar-asserts = "1.1.0"
-prettyplease = "0.1.18"
+prettyplease = "0.2.30"
 hex-literal = "0.3.4"
-derive_more = "0.99"
+derive_more = "1.0.0"
 proc-macro2 = "1.0"
 serde_json = "1.0"
 futures = "0.3.1"
@@ -81,106 +82,112 @@ zenlayer-testnet-node = { path = "node/testnet" }
 zenlayer-mainnet-node = { path = "node/mainnet" }
 
 # Substrate Client
-sc-cli = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-client-api = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-rpc = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-rpc-api = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-transaction-pool = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-transaction-pool-api = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-chain-spec = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-consensus = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-consensus-aura = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-consensus-grandpa = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-consensus-grandpa-rpc = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-consensus-manual-seal = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-network = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-network-sync = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-service = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-executor = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-telemetry = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-basic-authorship = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sc-offchain = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-substrate-prometheus-endpoint = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sc-cli = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-client-api = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-rpc = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-rpc-api = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-transaction-pool = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-transaction-pool-api = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-chain-spec = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-consensus = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-consensus-aura = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-consensus-grandpa = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-consensus-grandpa-rpc = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-consensus-manual-seal = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-network = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-network-sync = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-service = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-executor = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-telemetry = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-basic-authorship = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sc-offchain = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+substrate-prometheus-endpoint = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
 
 # Substrate Primitive
-sp-io = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-api = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-block-builder = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-blockchain = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-consensus = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-consensus-aura = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-consensus-grandpa = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-core = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-inherents = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-offchain = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-runtime = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-runtime-interface = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-session = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-std = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-transaction-pool = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-version = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-staking = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-keystore = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-timestamp = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-rpc = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-weights = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-sp-application-crypto = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+sp-io = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-api = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-block-builder = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-blockchain = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-consensus = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-consensus-aura = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-consensus-grandpa = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-core = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-inherents = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-offchain = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-runtime = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-runtime-interface = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-session = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-std = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-transaction-pool = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-version = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-staking = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-keystore = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-timestamp = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-rpc = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-weights = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-application-crypto = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+sp-genesis-builder = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
 
 # Substrate FRAME
-substrate-frame-rpc-system = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-frame-system = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-frame-support = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-frame-executive = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-frame-system-rpc-runtime-api = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-frame-benchmarking = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-frame-benchmarking-cli = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-frame-system-benchmarking = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-pallet-aura = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-pallet-balances = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-pallet-grandpa = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-pallet-sudo = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-pallet-timestamp = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-pallet-transaction-payment = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-pallet-transaction-payment-rpc = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-pallet-transaction-payment-rpc-runtime-api = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-pallet-session = { default-features = false, git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+substrate-frame-rpc-system = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+frame-system = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+frame-support = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+frame-executive = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+frame-system-rpc-runtime-api = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+frame-benchmarking = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+frame-benchmarking-cli = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+frame-system-benchmarking = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+pallet-aura = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+pallet-balances = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+pallet-grandpa = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+pallet-sudo = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+pallet-timestamp = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+pallet-transaction-payment = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+pallet-transaction-payment-rpc = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+pallet-transaction-payment-rpc-runtime-api = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+pallet-session = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
 pallet-validator-set = { default-features = false, path = "pallets/validator-set" }
 
 # Substrate Builds
-substrate-wasm-builder = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
-substrate-build-script-utils = { git = "https://github.com/boolnetwork/polkadot-sdk", branch = "zenlayer" }
+substrate-wasm-builder = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
+substrate-build-script-utils = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
 
 # Frontier Client
-fc-db = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fc-rpc = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fc-mapping-sync = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fc-rpc-core = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fc-rpc-debug = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fc-rpc-trace = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fc-rpc-txpool = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fc-db = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fc-rpc = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fc-mapping-sync = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fc-rpc-core = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fc-rpc-debug = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fc-rpc-trace = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fc-rpc-txpool = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fc-api = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+
 
 # Frontier Primitive
-fp-self-contained = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fp-storage = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fp-evm = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fp-ext = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fp-rpc = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fp-rpc-debug = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fp-rpc-txpool = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fp-rpc-evm-tracing-events = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-fp-account = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+fp-self-contained = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fp-account = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fp-storage = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fp-evm = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fp-ext = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fp-rpc = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fp-rpc-debug = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fp-rpc-txpool = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+fp-rpc-evm-tracing-events = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
 
 # Frontier Runtime
-evm-tracer = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+evm-tracer = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
 
 # Frontier FRAME
-pallet-evm = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-pallet-evm-chain-id = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-pallet-ethereum = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-pallet-base-fee = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-pallet-dynamic-fee = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-pallet-evm-precompile-simple = { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-pallet-evm-precompile-bn128= { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-pallet-evm-precompile-modexp= { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-pallet-evm-precompile-blake2= { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
-pallet-evm-precompile-sha3fips= { default-features = false, git = "https://github.com/boolnetwork/frontier", branch = "zenlayer" }
+pallet-evm = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+pallet-evm-chain-id = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+pallet-ethereum = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+pallet-base-fee = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+pallet-dynamic-fee = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+pallet-evm-precompile-simple = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+pallet-evm-precompile-bn128= { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+pallet-evm-precompile-modexp= { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+pallet-evm-precompile-blake2= { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+pallet-evm-precompile-sha3fips= { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }
+
+# Frontier Utilities
+precompile-utils = { default-features = false, git = "https://github.com/bifrost-platform/bifrost-frontier", branch = "bifrost-polkadot-stable2407" }

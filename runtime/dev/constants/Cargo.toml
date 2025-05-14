@@ -10,17 +10,12 @@ repository = { workspace = true }
 
 [dependencies]
 zenlayer-common-constants = { workspace = true }
-bp-core = { workspace = true }
-
 # Substrate
-sp-core = { workspace = true }
 frame-support = { workspace = true }
-pallet-evm = { workspace = true }
 
 [features]
 default = ["std"]
 std = [
-	"pallet-evm/std",
-	"sp-core/std",
-	"frame-support/std"
+	"frame-support/std",
+	"zenlayer-common-constants/std"
 ]

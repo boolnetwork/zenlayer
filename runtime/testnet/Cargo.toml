@@ -18,8 +18,9 @@ parity-scale-codec = { workspace = true }
 scale-info = { workspace = true }
 hex-literal = { workspace = true, optional = true }
 rlp = { workspace = true, optional = true }
+sha3 = { workspace = true, optional = true }
 num_enum = { workspace = true }
-log = "0.4.20"
+
 # zenlayer
 zenlayer-common-runtime = { workspace = true }
 zenlayer-testnet-constants = { workspace = true }
@@ -43,31 +44,33 @@ pallet-validator-set = { workspace = true }
 pallet-session = { workspace = true }
 
 # substrate primitives
-sp-io = { workspace = true }
 sp-api = { workspace = true }
 sp-block-builder = { workspace = true }
-sp-consensus-aura = { workspace = true }
-sp-core = { workspace = true }
+sp-consensus-aura = { workspace = true, features = ["serde"] }
+sp-core = { workspace = true, features = ["serde"] }
 sp-inherents = { workspace = true }
 sp-offchain = { workspace = true }
-sp-runtime = { workspace = true }
+sp-runtime = { workspace = true, features = ["serde"] }
 sp-session = { workspace = true }
 sp-std = { workspace = true }
 sp-transaction-pool = { workspace = true }
-sp-version = { workspace = true }
+sp-version = { workspace = true, features = ["serde"] }
+sp-io = { workspace = true }
+sp-genesis-builder = { workspace = true }
 
 # Frontier
-pallet-evm = { workspace = true }
+pallet-evm = { workspace = true, features = ["forbid-evm-reentrancy"] }
 pallet-evm-chain-id = { workspace = true }
 pallet-dynamic-fee = { workspace = true }
-pallet-ethereum = { workspace = true }
+pallet-ethereum = { workspace = true, features = ["forbid-evm-reentrancy"] }
 pallet-base-fee = { workspace = true }
-fp-self-contained = { workspace = true }
-fp-evm = { workspace = true }
+fp-self-contained = { workspace = true, features = ["serde"] }
+fp-evm = { workspace = true, features = ["serde"] }
 fp-rpc = { workspace = true }
 fp-rpc-debug = { workspace = true }
 fp-rpc-txpool = { workspace = true }
 fp-rpc-evm-tracing-events = { workspace = true, optional = true }
+fp-account = { workspace = true, features = ["serde"]}
 evm-tracer = { workspace = true, optional = true }
 
 # Precompiled Contracts
@@ -77,8 +80,10 @@ pallet-evm-precompile-modexp = { workspace = true }
 pallet-evm-precompile-blake2 = { workspace = true }
 pallet-evm-precompile-sha3fips = { workspace = true }
 
+precompile-utils = { workspace = true }
+
 [build-dependencies]
-substrate-wasm-builder = { workspace = true }
+substrate-wasm-builder = { workspace = true, optional = true }
 
 [features]
 default = ["std"]
@@ -86,6 +91,8 @@ std = [
 	"parity-scale-codec/std",
 	"scale-info/std",
 	"zenlayer-common-runtime/std",
+	"zenlayer-testnet-constants/std",
+	"num_enum/std",
 	"bp-core/std",
 	"frame-executive/std",
 	"frame-support/std",
@@ -109,27 +116,34 @@ std = [
 	"sp-consensus-aura/std",
 	"sp-block-builder/std",
 	"sp-core/std",
+	"sp-io/std",
 	"sp-inherents/std",
 	"sp-offchain/std",
 	"sp-runtime/std",
 	"sp-session/std",
 	"sp-std/std",
-	"sp-io/std",
 	"sp-transaction-pool/std",
 	"sp-version/std",
+	"sp-genesis-builder/std",
 	"fp-self-contained/std",
 	"fp-evm/std",
 	"fp-rpc/std",
 	"fp-rpc-debug/std",
 	"fp-rpc-txpool/std",
 	"fp-rpc-evm-tracing-events/std",
+	"fp-account/std",
 	"evm-tracer/std",
+	"substrate-wasm-builder",
+	"precompile-utils/std",
+	"pallet-evm-precompile-simple/std",
+	"pallet-evm-precompile-bn128/std",
+	"pallet-evm-precompile-modexp/std",
+	"pallet-evm-precompile-blake2/std",
 ]
 evm-tracing = [
 	"rlp",
+	"sha3",
 	"evm-tracer",
-	"sp-io/disable_oom",
-	"sp-io/disable_panic_handler",
 	"fp-rpc-evm-tracing-events",
 ]
 runtime-wasm = []
