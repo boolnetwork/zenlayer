@@ -1,21 +1,19 @@
+use zenlayer_dev_runtime::{
+	opaque::SessionKeys, AccountId, Precompiles, SS58Prefix, WASM_BINARY
+};
+use zenlayer_dev_constants::currency::UNITS;
 use fp_evm::GenesisAccount;
-use hex_literal::hex;
 use sc_chain_spec::Properties;
 use sc_service::ChainType;
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_consensus_grandpa::AuthorityId as GrandpaId;
-use sp_core::{ed25519, sr25519, ByteArray, Pair, Public};
-use zenlayer_dev_runtime::{
-	opaque::SessionKeys, AccountId, Balance, GenesisConfig, Precompiles, SS58Prefix, WASM_BINARY,
-};
+use sp_core::{ed25519, sr25519, ByteArray, Pair, Public, H160};
 
-// The URL for the telemetry server.
-// const STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
-const ZEN: Balance = 1_000_000_000_000_000_000;
+use hex_literal::hex;
+use std::collections::BTreeMap;
 
 /// Specialized `ChainSpec`. This is a specialization of the general Substrate ChainSpec type.
-pub type ChainSpec = sc_service::GenericChainSpec<GenesisConfig>;
-
+pub type ChainSpec = sc_service::GenericChainSpec;
 /// Generate an Aura authority key.
 pub fn authority_keys_from_seed(s: &str, acc: AccountId) -> (AuraId, GrandpaId, AccountId) {
 	(get_from_seed::<AuraId>(s), get_from_seed::<GrandpaId>(s), acc)
@@ -57,19 +55,13 @@ fn session_keys(aura: AuraId, grandpa: GrandpaId) -> SessionKeys {
 }
 
 pub fn development_config() -> ChainSpec {
-	let wasm_binary = WASM_BINARY.expect("WASM not available");
-
-	ChainSpec::from_genesis(
-		// Name
-		"Zenlayer Dev",
-		// ID
-		"dev",
-		ChainType::Development,
-		move || {
-			dev_genesis(
-				wasm_binary,
-				// Sudo account (Alith)
-				AccountId::from(hex!("f24FF3a9CF04c71Dbc94D0b566f7A27B94566cac")),
+	ChainSpec::builder(WASM_BINARY.expect("WASM not available"), Default::default())
+		.with_name("Zenlayer Dev")
+		.with_id("dev")
+		.with_chain_type(ChainType::Development)
+		.with_properties(properties())
+		.with_genesis_config_patch(development_genesis(
+			AccountId::from(hex!("f24FF3a9CF04c71Dbc94D0b566f7A27B94566cac")),
 				// Pre-funded accounts
 				vec![
 					AccountId::from(hex!("f24FF3a9CF04c71Dbc94D0b566f7A27B94566cac")), // Alith
@@ -87,75 +79,39 @@ pub fn development_config() -> ChainSpec {
 				// Ethereum chain ID
 				// SS58Prefix::get() as u64,
 				17977,
-			)
-		},
-		// Bootnodes
-		vec![],
-		// Telemetry
-		None,
-		// Protocol ID
-		None,
-		// Fork ID
-		None,
-		// Properties
-		Some(properties()),
-		// Extensions
-		None,
-	)
+		))
+		.build()
 }
 
 /// Configure initial storage state for FRAME modules.
-fn dev_genesis(
-	wasm_binary: &[u8],
+fn development_genesis(
 	sudo_key: AccountId,
 	endowed_accounts: Vec<AccountId>,
 	initial_authorities: Vec<(AuraId, GrandpaId, AccountId)>,
 	chain_id: u64,
-) -> GenesisConfig {
-	use zenlayer_dev_runtime::{
-		AuraConfig, BalancesConfig, EVMChainIdConfig, EVMConfig, GrandpaConfig, SessionConfig,
-		SudoConfig, SystemConfig, ValidatorSetConfig,
-	};
-	// (PUSH1 0x00 PUSH1 0x00 REVERT)
+) -> serde_json::Value {
 	let revert_bytecode = vec![0x60, 0x00, 0x60, 0x00, 0xFD];
 
-	GenesisConfig {
-		// System
-		system: SystemConfig {
-			// Add Wasm runtime to storage.
-			code: wasm_binary.to_vec(),
-			..Default::default()
+	serde_json::json!({
+		"sudo": { "key": Some(sudo_key) },
+		"balances": {
+			"balances": endowed_accounts.iter().cloned().map(|k| (k, 1_000_000 * UNITS)).collect::<Vec<_>>(),
 		},
-		sudo: SudoConfig {
-			// Assign network admin rights.
-			key: Some(sudo_key),
+		"validatorSet": {
+			"initialValidators": initial_authorities.iter().map(|x| x.2.clone()).collect::<Vec<_>>(),
 		},
-
-		// Monetary
-		balances: BalancesConfig {
-			balances: endowed_accounts.iter().cloned().map(|k| (k, 1_000_000 * ZEN)).collect(),
-		},
-		transaction_payment: Default::default(),
-
-		// Consensus
-		aura: AuraConfig { authorities: vec![] },
-		validator_set: ValidatorSetConfig {
-			initial_validators: initial_authorities.iter().map(|x| x.2.clone()).collect::<Vec<_>>(),
-		},
-		session: SessionConfig {
-			keys: initial_authorities
+		"session": {
+			"keys": initial_authorities
 				.iter()
 				.map(|x| (x.2.clone(), x.2.clone(), session_keys(x.0.clone(), x.1.clone())))
-				.collect::<Vec<_>>(),
+				.collect::<Vec<_>>()
 		},
-		grandpa: GrandpaConfig { authorities: vec![], ..Default::default() },
-
-		// EVM compatibility
-		evm_chain_id: EVMChainIdConfig { chain_id, ..Default::default() },
-		evm: EVMConfig {
-			// We need _some_ code inserted at the precompile address so that
-			// the evm will actually call the address.
-			accounts: Precompiles::used_addresses()
+		"evmChainId": { "chainId": chain_id },
+		"evm": {
+			"accounts":
+				// We need _some_ code inserted at the precompile address so that
+				// the evm will actually call the address.
+				Precompiles::used_addresses()
 				.into_iter()
 				.map(|addr| {
 					(
@@ -168,11 +124,7 @@ fn dev_genesis(
 						},
 					)
 				})
-				.collect(),
-			..Default::default()
-		},
-		ethereum: Default::default(),
-		dynamic_fee: Default::default(),
-		base_fee: Default::default(),
-	}
+				.collect::<BTreeMap<H160, GenesisAccount>>()
+		}
+	})
 }

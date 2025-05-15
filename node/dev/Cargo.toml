@@ -47,6 +47,8 @@ sp-block-builder = { workspace = true, features = ["std"] }
 sp-timestamp = { workspace = true, features = ["std"] }
 sp-blockchain = { workspace = true }
 sp-consensus = { workspace = true }
+sp-inherents = { workspace = true }
+sc-offchain = { workspace = true }
 
 # FRAME dependencies
 pallet-transaction-payment-rpc = { workspace = true }

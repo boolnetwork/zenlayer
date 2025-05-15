@@ -18,6 +18,9 @@ name = 'zenlayer'
 # third-party dependencies
 clap = { workspace = true }
 
+# substrate primitive dependencies
+sp-runtime = { workspace = true, features = ["std"] }
+
 # substrate client dependencies
 sc-cli = { workspace = true }
 sc-service = { workspace = true }

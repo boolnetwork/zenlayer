@@ -134,9 +134,9 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 	// The version of the authorship interface.
 	authoring_version: 1,
 	// The version of the runtime spec.
-	spec_version: 100,
+	spec_version: 101,
 	// The version of the implementation of the spec.
-	impl_version: 1,
+	impl_version: 2,
 	// A list of supported runtime APIs along with their versions.
 	apis: RUNTIME_API_VERSIONS,
 	// The version of the interface for handling transactions.
