@@ -81,6 +81,7 @@ pallet-evm-precompile-blake2 = { workspace = true }
 pallet-evm-precompile-sha3fips = { workspace = true }
 
 precompile-utils = { workspace = true }
+precompile-validator-set = { workspace = true }
 
 [build-dependencies]
 substrate-wasm-builder = { workspace = true, optional = true }
@@ -139,6 +140,7 @@ std = [
 	"pallet-evm-precompile-bn128/std",
 	"pallet-evm-precompile-modexp/std",
 	"pallet-evm-precompile-blake2/std",
+	"precompile-validator-set/std",
 ]
 evm-tracing = [
 	"rlp",

@@ -12,6 +12,7 @@ members = [
     "runtime/mainnet",
     "primitives/core",
     "pallets/*",
+	"precompiles/*"
 ]
 [profile.release]
 panic = "unwind"
@@ -81,6 +82,13 @@ zenlayer-dev-node = { path = "node/dev" }
 zenlayer-testnet-node = { path = "node/testnet" }
 zenlayer-mainnet-node = { path = "node/mainnet" }
 
+# zenlayer Frame
+pallet-validator-set = { default-features = false, path = "pallets/validator-set" }
+
+# zenlayer precompile
+precompile-validator-set = { default-features = false, path = "precompiles/validator-set" }
+
+
 # Substrate Client
 sc-cli = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
 sc-client-api = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
@@ -146,7 +154,6 @@ pallet-transaction-payment = { default-features = false, git = "https://github.c
 pallet-transaction-payment-rpc = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
 pallet-transaction-payment-rpc-runtime-api = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
 pallet-session = { default-features = false, git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }
-pallet-validator-set = { default-features = false, path = "pallets/validator-set" }
 
 # Substrate Builds
 substrate-wasm-builder = { git = "https://github.com/bifrost-platform/polkadot-sdk", branch = "bifrost-polkadot-stable2407" }

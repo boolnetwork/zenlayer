@@ -10,6 +10,7 @@ use pallet_evm_precompile_modexp::Modexp;
 use pallet_evm_precompile_sha3fips::Sha3FIPS256;
 use pallet_evm_precompile_simple::{ECRecover, ECRecoverPublicKey, Identity, Ripemd160, Sha256};
 
+use precompile_validator_set::ValidatorSetPrecompile;
 pub struct ZenlayerPrecompiles<R>(PhantomData<R>);
 
 impl<R> ZenlayerPrecompiles<R>
@@ -19,7 +20,7 @@ where
 	pub fn new() -> Self {
 		Self(Default::default())
 	}
-	pub fn used_addresses() -> [H160; 11] {
+	pub fn used_addresses() -> [H160; 12] {
 		[
 			hash(1),
 			hash(2),
@@ -32,12 +33,14 @@ where
 			hash(9),
 			hash(1024),
 			hash(1025),
+			hash(65536),
 		]
 	}
 }
 impl<R> PrecompileSet for ZenlayerPrecompiles<R>
 where
 	R: pallet_evm::Config,
+	ValidatorSetPrecompile<R>: Precompile,
 {
 	fn execute(&self, handle: &mut impl PrecompileHandle) -> Option<PrecompileResult> {
 		match handle.code_address() {
@@ -54,6 +57,8 @@ where
 			// Non-Frontier specific nor Ethereum precompiles :
 			a if a == hash(1024) => Some(Sha3FIPS256::execute(handle)),
 			a if a == hash(1025) => Some(ECRecoverPublicKey::execute(handle)),
+			// zenlayer precompiles
+			a if a == hash(65536) => Some(ValidatorSetPrecompile::<R>::execute(handle)),
 			_ => None,
 		}
 	}

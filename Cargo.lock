@@ -6505,6 +6505,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "precompile-validator-set"
+version = "1.0.0"
+dependencies = [
+ "fp-evm",
+ "frame-support",
+ "frame-system",
+ "pallet-evm",
+ "pallet-validator-set",
+ "precompile-utils",
+ "sp-core",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "predicates"
 version = "2.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -11882,6 +11897,7 @@ dependencies = [
  "pallet-validator-set",
  "parity-scale-codec",
  "precompile-utils",
+ "precompile-validator-set",
  "rlp",
  "scale-info",
  "sha3",
@@ -12015,6 +12031,7 @@ dependencies = [
  "pallet-validator-set",
  "parity-scale-codec",
  "precompile-utils",
+ "precompile-validator-set",
  "rlp",
  "scale-info",
  "sha3",
@@ -12148,6 +12165,7 @@ dependencies = [
  "pallet-validator-set",
  "parity-scale-codec",
  "precompile-utils",
+ "precompile-validator-set",
  "rlp",
  "scale-info",
  "sha3",
