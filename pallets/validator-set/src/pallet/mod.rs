@@ -100,7 +100,7 @@ pub mod pallet {
 		/// The origin can be configured using the `AddRemoveOrigin` type in the
 		/// host runtime. Can also be set to sudo/root.
 		#[pallet::call_index(0)]
-		#[pallet::weight(Weight::from_parts(0, 0))]
+		#[pallet::weight(<T as Config>::WeightInfo::add_validator())]
 		pub fn add_validator(origin: OriginFor<T>, validator_id: T::AccountId) -> DispatchResult {
 			T::AddRemoveOrigin::ensure_origin(origin)?;
 
@@ -115,7 +115,7 @@ pub mod pallet {
 		/// The origin can be configured using the `AddRemoveOrigin` type in the
 		/// host runtime. Can also be set to sudo/root.
 		#[pallet::call_index(1)]
-		#[pallet::weight(Weight::from_parts(0, 0))]
+		#[pallet::weight(<T as Config>::WeightInfo::remove_validator())]
 		pub fn remove_validator(
 			origin: OriginFor<T>,
 			validator_id: T::AccountId,
