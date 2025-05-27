@@ -48,7 +48,7 @@ pub mod mainnet {
 		type ExtendHostFunctions = frame_benchmarking::benchmarking::HostFunctions;
 
 		#[cfg(not(feature = "runtime-benchmarks"))]
-		type ExtendHostFunctions = fp_ext::bifrost_ext::HostFunctions;
+		type ExtendHostFunctions = fp_ext::bool_network_evm_ext::HostFunctions;
 
 		fn dispatch(method: &str, data: &[u8]) -> Option<Vec<u8>> {
 			zenlayer_mainnet_runtime::api::dispatch(method, data)
