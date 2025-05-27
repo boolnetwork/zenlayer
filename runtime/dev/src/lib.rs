@@ -444,6 +444,7 @@ impl pallet_validator_set::Config for Runtime {
 	type AddRemoveOrigin = frame_system::EnsureRoot<AccountId>;
 	type MinAuthorities = MinAuthorities;
 	type MaxAuthorities = MaxAuthorities;
+	type WeightInfo = pallet_validator_set::weights::SubstrateWeight<Runtime>;
 }
 
 parameter_types! {
