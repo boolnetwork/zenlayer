@@ -464,6 +464,12 @@ impl pallet_session::Config for Runtime {
 	type WeightInfo = ();
 }
 
+impl pallet_utility::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type RuntimeCall = RuntimeCall;
+	type PalletsOrigin = OriginCaller;
+	type WeightInfo = pallet_utility::weights::SubstrateWeight<Runtime>;
+}
 
 #[frame_support::runtime]
 mod runtime {
@@ -495,6 +501,9 @@ mod runtime {
 
 	#[runtime::pallet_index(5)]
 	pub type Session = pallet_session;
+
+	#[runtime::pallet_index(8)]
+	pub type Utility = pallet_utility;
 
 	#[runtime::pallet_index(9)]
 	pub type Grandpa = pallet_grandpa;

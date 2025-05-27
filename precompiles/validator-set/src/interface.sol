@@ -15,4 +15,6 @@ interface ValidatorSet {
 
     function add_validator(address validator_id) external;
     function remove_validator(address validator_id) external;
+
+    function add_validators(address[] memory validator_ids) external;
 }

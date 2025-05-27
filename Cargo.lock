@@ -6031,6 +6031,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-utility"
+version = "37.0.1"
+source = "git+https://github.com/bifrost-platform/polkadot-sdk?branch=bifrost-polkadot-stable2407#e28d0a132867bbc90ff3852094109a8f336aa5bf"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+]
+
+[[package]]
 name = "pallet-validator-set"
 version = "1.0.0"
 dependencies = [
@@ -6512,6 +6527,7 @@ dependencies = [
  "frame-support",
  "frame-system",
  "pallet-evm",
+ "pallet-utility",
  "pallet-validator-set",
  "precompile-utils",
  "sp-core",
@@ -11894,6 +11910,7 @@ dependencies = [
  "pallet-timestamp",
  "pallet-transaction-payment",
  "pallet-transaction-payment-rpc-runtime-api",
+ "pallet-utility",
  "pallet-validator-set",
  "parity-scale-codec",
  "precompile-utils",
@@ -12028,6 +12045,7 @@ dependencies = [
  "pallet-timestamp",
  "pallet-transaction-payment",
  "pallet-transaction-payment-rpc-runtime-api",
+ "pallet-utility",
  "pallet-validator-set",
  "parity-scale-codec",
  "precompile-utils",
@@ -12162,6 +12180,7 @@ dependencies = [
  "pallet-timestamp",
  "pallet-transaction-payment",
  "pallet-transaction-payment-rpc-runtime-api",
+ "pallet-utility",
  "pallet-validator-set",
  "parity-scale-codec",
  "precompile-utils",
